@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Ui_2" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Ui_2" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="2" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/Ui_2" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="2" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="`wx-config --cflags`" />
+			<Add option="-Wall" />
+		</Compiler>
+		<Linker>
+			<Add option="`wx-config --libs`" />
+		</Linker>
+		<Unit filename="Ui_2App.cpp" />
+		<Unit filename="Ui_2App.h" />
+		<Unit filename="Ui_2Main.cpp" />
+		<Unit filename="Ui_2Main.h" />
+		<Unit filename="rmlib.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="wxsmith/Ui_2frame.wxs" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<wxsmith version="1">
+				<gui name="wxWidgets" src="Ui_2App.cpp" main="Ui_2Frame" init_handlers="necessary" language="CPP" />
+				<resources>
+					<wxFrame wxs="wxsmith/Ui_2frame.wxs" src="Ui_2Main.cpp" hdr="Ui_2Main.h" fwddecl="0" i18n="1" name="Ui_2Frame" language="CPP" />
+				</resources>
+			</wxsmith>
+			<lib_finder disable_auto="1" />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

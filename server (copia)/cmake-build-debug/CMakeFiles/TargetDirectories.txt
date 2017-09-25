@@ -1,0 +1,3 @@
+/home/tony/Escritorio/Proyecto-1-Remote-Memory-master/Clion_server/server (copia)/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/tony/Escritorio/Proyecto-1-Remote-Memory-master/Clion_server/server (copia)/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/tony/Escritorio/Proyecto-1-Remote-Memory-master/Clion_server/server (copia)/cmake-build-debug/CMakeFiles/untitled.dir

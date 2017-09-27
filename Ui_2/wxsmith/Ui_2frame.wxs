@@ -6,6 +6,7 @@
 		<icon>/home/tony/Imágenes/memoria.png</icon>
 		<size>881,450</size>
 		<id_arg>0</id_arg>
+		<handler function="OnClose1" entry="EVT_CLOSE" />
 		<object class="wxButton" name="ID_BUTTON1" variable="Button1" member="yes">
 			<label>Conectar</label>
 			<pos>456,40</pos>
@@ -24,8 +25,9 @@
 			<pos>632,160</pos>
 		</object>
 		<object class="wxButton" name="ID_BUTTON5" variable="Button5" member="yes">
-			<label>D</label>
+			<label>K</label>
 			<pos>752,160</pos>
+			<handler function="OnButton5Click" entry="EVT_BUTTON" />
 		</object>
 		<object class="wxButton" name="ID_BUTTON6" variable="Button6" member="yes">
 			<label>E</label>
@@ -44,19 +46,19 @@
 			<label>Puerto,IP server Pasivo:</label>
 			<pos>24,72</pos>
 		</object>
-		<object class="wxTextCtrl" name="ID_TEXTCTRL1" variable="TextCtrl1" member="yes">
+		<object class="wxTextCtrl" name="ID_TEXTCTRL1" variable="IP_SA" member="yes">
 			<value>Text</value>
 			<pos>328,32</pos>
 		</object>
-		<object class="wxTextCtrl" name="ID_TEXTCTRL2" variable="TextCtrl2" member="yes">
+		<object class="wxTextCtrl" name="ID_TEXTCTRL2" variable="IP_SP" member="yes">
 			<value>Text</value>
 			<pos>328,80</pos>
 		</object>
-		<object class="wxTextCtrl" name="ID_TEXTCTRL3" variable="TextCtrl3" member="yes">
+		<object class="wxTextCtrl" name="ID_TEXTCTRL3" variable="Llave_1" member="yes">
 			<value>Text</value>
 			<pos>168,168</pos>
 		</object>
-		<object class="wxTextCtrl" name="ID_TEXTCTRL4" variable="TextCtrl4" member="yes">
+		<object class="wxTextCtrl" name="ID_TEXTCTRL4" variable="Valor_1" member="yes">
 			<value>Text</value>
 			<pos>168,216</pos>
 			<handler function="OnTextCtrl4Text" entry="EVT_TEXT" />
@@ -66,21 +68,38 @@
 			<pos>168,264</pos>
 			<handler function="OnButton7Click" entry="EVT_BUTTON" />
 		</object>
-		<object class="wxTextCtrl" name="ID_TEXTCTRL5" variable="TextCtrl5" member="yes">
+		<object class="wxTextCtrl" name="ID_TEXTCTRL5" variable="Puerto_SA" member="yes">
 			<value>Text</value>
 			<pos>224,32</pos>
+			<handler function="OnTextCtrl5Text" entry="EVT_TEXT" />
 		</object>
-		<object class="wxTextCtrl" name="ID_TEXTCTRL6" variable="TextCtrl6" member="yes">
+		<object class="wxTextCtrl" name="ID_TEXTCTRL6" variable="Puerto_SP" member="yes">
 			<value>Text</value>
 			<pos>224,80</pos>
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT4" variable="Valor" member="yes">
-			<label>Memoria</label>
+			<label>Llave</label>
 			<pos>40,168</pos>
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT5" variable="StaticText5" member="yes">
 			<label>Valor</label>
-			<pos>48,224</pos>
+			<pos>40,224</pos>
+		</object>
+		<object class="wxButton" name="ID_BUTTON8" variable="Button8" member="yes">
+			<label>Eliminar</label>
+			<pos>168,312</pos>
+		</object>
+		<object class="wxButton" name="ID_BUTTON9" variable="Button9" member="yes">
+			<label>Comparar</label>
+			<pos>256,360</pos>
+		</object>
+		<object class="wxTextCtrl" name="ID_TEXTCTRL7" variable="Memoria_2" member="yes">
+			<value>Text</value>
+			<pos>336,168</pos>
+		</object>
+		<object class="wxTextCtrl" name="ID_TEXTCTRL8" variable="Valor_2" member="yes">
+			<value>Text</value>
+			<pos>336,216</pos>
 		</object>
 		<object class="wxMenuBar" variable="MenuBar1" member="no">
 			<object class="wxMenu" variable="Menu1" member="no">

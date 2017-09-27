@@ -558,7 +558,7 @@
 
 1505581765 /usr/local/include/wx-3.1/wx/gtk/app.h
 
-1506298889 /home/tony/Escritorio/Ui_2/Ui_2Main.h
+1506495841 /home/tony/Escritorio/Ui_2/Ui_2Main.h
 	<wx/button.h>
 	<wx/menu.h>
 	<wx/statusbr.h>
@@ -926,10 +926,11 @@
 
 1505581765 /usr/local/include/wx-3.1/wx/gtk/frame.h
 
-1506310105 source:/home/tony/Escritorio/Ui_2/Ui_2Main.cpp
+1506496950 source:/home/tony/Escritorio/Ui_2/Ui_2Main.cpp
 	"Ui_2Main.h"
 	<wx/msgdlg.h>
 	"rmlib.h"
+	<string.h>
 	<wx/string.h>
 	<wx/intl.h>
 	<wx/bitmap.h>
@@ -1035,7 +1036,7 @@
 
 1505581765 /usr/local/include/wx-3.1/wx/gtk/textctrl.h
 
-1506311087 /home/tony/Escritorio/Ui_2/rmlib.h
+1506498622 /home/tony/Escritorio/Ui_2/rmlib.h
 	<iostream>
 	<string.h>
 	<sys/types.h>

@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/tony/Escritorio/Proyecto-1-Remote-Memory-master/Clion_server/server (copia)/main.cpp
+/home/anthony/Escritorio/sERVIDOR_pROYECTO/server (copia)/main.cpp
 iostream
 -
 string.h
@@ -24,5 +24,7 @@ stdlib.h
 unistd.h
 -
 stdio.h
+-
+thread
 -
 

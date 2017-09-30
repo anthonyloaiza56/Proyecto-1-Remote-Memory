@@ -1,4 +1,4 @@
-# Install script for directory: /home/tony/Escritorio/Proyecto-1-Remote-Memory-master/Clion_server/server (copia)
+# Install script for directory: /home/anthony/Escritorio/sERVIDOR_pROYECTO/server (copia)
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/tony/Escritorio/Proyecto-1-Remote-Memory-master/Clion_server/server (copia)/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/anthony/Escritorio/sERVIDOR_pROYECTO/server (copia)/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

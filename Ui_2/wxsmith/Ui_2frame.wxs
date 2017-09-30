@@ -3,43 +3,46 @@
 	<object class="wxFrame" name="Ui_2Frame">
 		<title>Remote Memory</title>
 		<centered>1</centered>
-		<icon>/home/tony/Imágenes/memoria.png</icon>
-		<size>881,450</size>
+		<pos>-1,-1</pos>
+		<size>750,400</size>
+		<bg>#EEEEEE</bg>
 		<id_arg>0</id_arg>
+		<style>wxSTAY_ON_TOP|wxDEFAULT_FRAME_STYLE</style>
 		<handler function="OnClose1" entry="EVT_CLOSE" />
 		<object class="wxButton" name="ID_BUTTON1" variable="Button1" member="yes">
 			<label>Conectar</label>
 			<pos>456,40</pos>
+			<fg>wxSYS_COLOUR_SCROLLBAR</fg>
+			<bg>#3F51B5</bg>
 			<handler function="OnButton1Click" entry="EVT_BUTTON" />
 		</object>
-		<object class="wxButton" name="ID_BUTTON2" variable="Button2" member="yes">
-			<label>A</label>
-			<pos>632,112</pos>
-		</object>
-		<object class="wxButton" name="ID_BUTTON3" variable="Button3" member="yes">
-			<label>B</label>
-			<pos>752,112</pos>
-		</object>
 		<object class="wxButton" name="ID_BUTTON4" variable="Button4" member="yes">
-			<label>C</label>
-			<pos>632,160</pos>
+			<label>Ver Memoria</label>
+			<pos>608,64</pos>
+			<fg>wxSYS_COLOUR_SCROLLBAR</fg>
+			<bg>#795548</bg>
+			<handler function="OnButton4Click" entry="EVT_BUTTON" />
 		</object>
 		<object class="wxButton" name="ID_BUTTON5" variable="Button5" member="yes">
-			<label>K</label>
-			<pos>752,160</pos>
+			<label>Ver Cache</label>
+			<pos>616,112</pos>
+			<fg>wxSYS_COLOUR_SCROLLBAR</fg>
+			<bg>#795548</bg>
 			<handler function="OnButton5Click" entry="EVT_BUTTON" />
 		</object>
 		<object class="wxButton" name="ID_BUTTON6" variable="Button6" member="yes">
-			<label>E</label>
-			<pos>688,240</pos>
+			<label>Aumentar referencia</label>
+			<pos>120,272</pos>
+			<fg>wxSYS_COLOUR_SCROLLBAR</fg>
+			<bg>#009688</bg>
 			<handler function="OnButton6Click" entry="EVT_BUTTON" />
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT1" variable="StaticText1" member="yes">
-			<label>Monitor de memoria</label>
-			<pos>664,64</pos>
+			<label>Monitor de memoria:</label>
+			<pos>584,32</pos>
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT2" variable="StaticText2" member="yes">
-			<label>Puerto,IP server Activo</label>
+			<label>Puerto,IP server Activo :</label>
 			<pos>24,40</pos>
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT3" variable="StaticText3" member="yes">
@@ -56,16 +59,19 @@
 		</object>
 		<object class="wxTextCtrl" name="ID_TEXTCTRL3" variable="Llave_1" member="yes">
 			<value>Text</value>
-			<pos>168,168</pos>
+			<pos>120,120</pos>
+			<handler function="OnLlave_1Text" entry="EVT_TEXT" />
 		</object>
 		<object class="wxTextCtrl" name="ID_TEXTCTRL4" variable="Valor_1" member="yes">
 			<value>Text</value>
-			<pos>168,216</pos>
+			<pos>120,160</pos>
 			<handler function="OnTextCtrl4Text" entry="EVT_TEXT" />
 		</object>
 		<object class="wxButton" name="ID_BUTTON7" variable="Button7" member="yes">
 			<label>Enviar</label>
-			<pos>168,264</pos>
+			<pos>120,200</pos>
+			<fg>wxSYS_COLOUR_SCROLLBAR</fg>
+			<bg>#009688</bg>
 			<handler function="OnButton7Click" entry="EVT_BUTTON" />
 		</object>
 		<object class="wxTextCtrl" name="ID_TEXTCTRL5" variable="Puerto_SA" member="yes">
@@ -78,28 +84,50 @@
 			<pos>224,80</pos>
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT4" variable="Valor" member="yes">
-			<label>Llave</label>
-			<pos>40,168</pos>
+			<label>Llave :</label>
+			<pos>40,120</pos>
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT5" variable="StaticText5" member="yes">
-			<label>Valor</label>
-			<pos>40,224</pos>
+			<label>Valor :</label>
+			<pos>40,168</pos>
 		</object>
 		<object class="wxButton" name="ID_BUTTON8" variable="Button8" member="yes">
 			<label>Eliminar</label>
-			<pos>168,312</pos>
+			<pos>120,232</pos>
+			<fg>wxSYS_COLOUR_SCROLLBAR</fg>
+			<bg>#009688</bg>
+			<handler function="OnButton8Click" entry="EVT_BUTTON" />
 		</object>
 		<object class="wxButton" name="ID_BUTTON9" variable="Button9" member="yes">
-			<label>Comparar</label>
-			<pos>256,360</pos>
+			<label>Comparar igualdad</label>
+			<pos>248,200</pos>
+			<fg>wxSYS_COLOUR_SCROLLBAR</fg>
+			<bg>#673AB7</bg>
+			<handler function="OnButton9Click" entry="EVT_BUTTON" />
 		</object>
-		<object class="wxTextCtrl" name="ID_TEXTCTRL7" variable="Memoria_2" member="yes">
+		<object class="wxTextCtrl" name="ID_TEXTCTRL7" variable="Llave_2" member="yes">
 			<value>Text</value>
-			<pos>336,168</pos>
+			<pos>248,120</pos>
 		</object>
-		<object class="wxTextCtrl" name="ID_TEXTCTRL8" variable="Valor_2" member="yes">
-			<value>Text</value>
-			<pos>336,216</pos>
+		<object class="wxButton" name="ID_BUTTON2" variable="Button2" member="yes">
+			<label>Copiar valor</label>
+			<pos>248,232</pos>
+			<fg>wxSYS_COLOUR_SCROLLBAR</fg>
+			<bg>#673AB7</bg>
+			<handler function="OnButton2Click2" entry="EVT_BUTTON" />
+		</object>
+		<object class="wxButton" name="ID_BUTTON3" variable="Button3" member="yes">
+			<label>Comparar desigualdad</label>
+			<pos>376,232</pos>
+			<fg>wxSYS_COLOUR_SCROLLBAR</fg>
+			<bg>#673AB7</bg>
+			<handler function="OnButton3Click1" entry="EVT_BUTTON" />
+		</object>
+		<object class="wxButton" name="ID_BUTTON10" variable="Button10" member="yes">
+			<label>Depurar buffer</label>
+			<pos>440,272</pos>
+			<fg>wxSYS_COLOUR_SCROLLBAR</fg>
+			<bg>wxSYS_COLOUR_ACTIVECAPTION</bg>
 		</object>
 		<object class="wxMenuBar" variable="MenuBar1" member="no">
 			<object class="wxMenu" variable="Menu1" member="no">

@@ -13,13 +13,11 @@
 #include <string.h>
 
 //(*InternalHeaders(Ui_2Frame)
+#include <wx/settings.h>
 #include <wx/string.h>
 #include <wx/intl.h>
-#include <wx/bitmap.h>
-#include <wx/icon.h>
-#include <wx/image.h>
 //*)
-
+int size_memoria=0;
 //helper functions
 enum wxbuildinfoformat {
     short_f, long_f };
@@ -48,8 +46,6 @@ wxString wxbuildinfo(wxbuildinfoformat format)
 
 //(*IdInit(Ui_2Frame)
 const long Ui_2Frame::ID_BUTTON1 = wxNewId();
-const long Ui_2Frame::ID_BUTTON2 = wxNewId();
-const long Ui_2Frame::ID_BUTTON3 = wxNewId();
 const long Ui_2Frame::ID_BUTTON4 = wxNewId();
 const long Ui_2Frame::ID_BUTTON5 = wxNewId();
 const long Ui_2Frame::ID_BUTTON6 = wxNewId();
@@ -68,7 +64,9 @@ const long Ui_2Frame::ID_STATICTEXT5 = wxNewId();
 const long Ui_2Frame::ID_BUTTON8 = wxNewId();
 const long Ui_2Frame::ID_BUTTON9 = wxNewId();
 const long Ui_2Frame::ID_TEXTCTRL7 = wxNewId();
-const long Ui_2Frame::ID_TEXTCTRL8 = wxNewId();
+const long Ui_2Frame::ID_BUTTON2 = wxNewId();
+const long Ui_2Frame::ID_BUTTON3 = wxNewId();
+const long Ui_2Frame::ID_BUTTON10 = wxNewId();
 const long Ui_2Frame::idMenuQuit = wxNewId();
 const long Ui_2Frame::idMenuAbout = wxNewId();
 const long Ui_2Frame::ID_STATUSBAR1 = wxNewId();
@@ -88,35 +86,52 @@ Ui_2Frame::Ui_2Frame(wxWindow* parent,wxWindowID id)
     wxMenuBar* MenuBar1;
     wxMenu* Menu2;
 
-    Create(parent, wxID_ANY, _("Remote Memory"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
-    SetClientSize(wxSize(881,450));
-    {
-    	wxIcon FrameIcon;
-    	FrameIcon.CopyFromBitmap(wxBitmap(wxImage(_T("/home/tony/Imágenes/memoria.png"))));
-    	SetIcon(FrameIcon);
-    }
+    Create(parent, wxID_ANY, _("Remote Memory"), wxDefaultPosition, wxDefaultSize, wxSTAY_ON_TOP|wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
+    SetClientSize(wxSize(750,400));
+    Move(wxPoint(-1,-1));
+    SetBackgroundColour(wxColour(238,238,238));
     Button1 = new wxButton(this, ID_BUTTON1, _("Conectar"), wxPoint(456,40), wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON1"));
-    Button2 = new wxButton(this, ID_BUTTON2, _("A"), wxPoint(632,112), wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON2"));
-    Button3 = new wxButton(this, ID_BUTTON3, _("B"), wxPoint(752,112), wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON3"));
-    Button4 = new wxButton(this, ID_BUTTON4, _("C"), wxPoint(632,160), wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON4"));
-    Button5 = new wxButton(this, ID_BUTTON5, _("K"), wxPoint(752,160), wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON5"));
-    Button6 = new wxButton(this, ID_BUTTON6, _("E"), wxPoint(688,240), wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON6"));
-    StaticText1 = new wxStaticText(this, ID_STATICTEXT1, _("Monitor de memoria"), wxPoint(664,64), wxDefaultSize, 0, _T("ID_STATICTEXT1"));
-    StaticText2 = new wxStaticText(this, ID_STATICTEXT2, _("Puerto,IP server Activo"), wxPoint(24,40), wxDefaultSize, 0, _T("ID_STATICTEXT2"));
+    Button1->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_SCROLLBAR));
+    Button1->SetBackgroundColour(wxColour(63,81,181));
+    Button4 = new wxButton(this, ID_BUTTON4, _("Ver Memoria"), wxPoint(608,64), wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON4"));
+    Button4->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_SCROLLBAR));
+    Button4->SetBackgroundColour(wxColour(121,85,72));
+    Button5 = new wxButton(this, ID_BUTTON5, _("Ver Cache"), wxPoint(616,112), wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON5"));
+    Button5->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_SCROLLBAR));
+    Button5->SetBackgroundColour(wxColour(121,85,72));
+    Button6 = new wxButton(this, ID_BUTTON6, _("Aumentar referencia"), wxPoint(120,272), wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON6"));
+    Button6->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_SCROLLBAR));
+    Button6->SetBackgroundColour(wxColour(0,150,136));
+    StaticText1 = new wxStaticText(this, ID_STATICTEXT1, _("Monitor de memoria:"), wxPoint(584,32), wxDefaultSize, 0, _T("ID_STATICTEXT1"));
+    StaticText2 = new wxStaticText(this, ID_STATICTEXT2, _("Puerto,IP server Activo :"), wxPoint(24,40), wxDefaultSize, 0, _T("ID_STATICTEXT2"));
     StaticText3 = new wxStaticText(this, ID_STATICTEXT3, _("Puerto,IP server Pasivo:"), wxPoint(24,72), wxDefaultSize, 0, _T("ID_STATICTEXT3"));
     IP_SA = new wxTextCtrl(this, ID_TEXTCTRL1, _("Text"), wxPoint(328,32), wxDefaultSize, 0, wxDefaultValidator, _T("ID_TEXTCTRL1"));
     IP_SP = new wxTextCtrl(this, ID_TEXTCTRL2, _("Text"), wxPoint(328,80), wxDefaultSize, 0, wxDefaultValidator, _T("ID_TEXTCTRL2"));
-    Llave_1 = new wxTextCtrl(this, ID_TEXTCTRL3, _("Text"), wxPoint(168,168), wxDefaultSize, 0, wxDefaultValidator, _T("ID_TEXTCTRL3"));
-    Valor_1 = new wxTextCtrl(this, ID_TEXTCTRL4, _("Text"), wxPoint(168,216), wxDefaultSize, 0, wxDefaultValidator, _T("ID_TEXTCTRL4"));
-    Button7 = new wxButton(this, ID_BUTTON7, _("Enviar"), wxPoint(168,264), wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON7"));
+    Llave_1 = new wxTextCtrl(this, ID_TEXTCTRL3, _("Text"), wxPoint(120,120), wxDefaultSize, 0, wxDefaultValidator, _T("ID_TEXTCTRL3"));
+    Valor_1 = new wxTextCtrl(this, ID_TEXTCTRL4, _("Text"), wxPoint(120,160), wxDefaultSize, 0, wxDefaultValidator, _T("ID_TEXTCTRL4"));
+    Button7 = new wxButton(this, ID_BUTTON7, _("Enviar"), wxPoint(120,200), wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON7"));
+    Button7->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_SCROLLBAR));
+    Button7->SetBackgroundColour(wxColour(0,150,136));
     Puerto_SA = new wxTextCtrl(this, ID_TEXTCTRL5, _("Text"), wxPoint(224,32), wxDefaultSize, 0, wxDefaultValidator, _T("ID_TEXTCTRL5"));
     Puerto_SP = new wxTextCtrl(this, ID_TEXTCTRL6, _("Text"), wxPoint(224,80), wxDefaultSize, 0, wxDefaultValidator, _T("ID_TEXTCTRL6"));
-    Valor = new wxStaticText(this, ID_STATICTEXT4, _("Llave"), wxPoint(40,168), wxDefaultSize, 0, _T("ID_STATICTEXT4"));
-    StaticText5 = new wxStaticText(this, ID_STATICTEXT5, _("Valor"), wxPoint(40,224), wxDefaultSize, 0, _T("ID_STATICTEXT5"));
-    Button8 = new wxButton(this, ID_BUTTON8, _("Eliminar"), wxPoint(168,312), wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON8"));
-    Button9 = new wxButton(this, ID_BUTTON9, _("Comparar"), wxPoint(256,360), wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON9"));
-    Memoria_2 = new wxTextCtrl(this, ID_TEXTCTRL7, _("Text"), wxPoint(336,168), wxDefaultSize, 0, wxDefaultValidator, _T("ID_TEXTCTRL7"));
-    Valor_2 = new wxTextCtrl(this, ID_TEXTCTRL8, _("Text"), wxPoint(336,216), wxDefaultSize, 0, wxDefaultValidator, _T("ID_TEXTCTRL8"));
+    Valor = new wxStaticText(this, ID_STATICTEXT4, _("Llave :"), wxPoint(40,120), wxDefaultSize, 0, _T("ID_STATICTEXT4"));
+    StaticText5 = new wxStaticText(this, ID_STATICTEXT5, _("Valor :"), wxPoint(40,168), wxDefaultSize, 0, _T("ID_STATICTEXT5"));
+    Button8 = new wxButton(this, ID_BUTTON8, _("Eliminar"), wxPoint(120,232), wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON8"));
+    Button8->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_SCROLLBAR));
+    Button8->SetBackgroundColour(wxColour(0,150,136));
+    Button9 = new wxButton(this, ID_BUTTON9, _("Comparar igualdad"), wxPoint(248,200), wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON9"));
+    Button9->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_SCROLLBAR));
+    Button9->SetBackgroundColour(wxColour(103,58,183));
+    Llave_2 = new wxTextCtrl(this, ID_TEXTCTRL7, _("Text"), wxPoint(248,120), wxDefaultSize, 0, wxDefaultValidator, _T("ID_TEXTCTRL7"));
+    Button2 = new wxButton(this, ID_BUTTON2, _("Copiar valor"), wxPoint(248,232), wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON2"));
+    Button2->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_SCROLLBAR));
+    Button2->SetBackgroundColour(wxColour(103,58,183));
+    Button3 = new wxButton(this, ID_BUTTON3, _("Comparar desigualdad"), wxPoint(376,232), wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON3"));
+    Button3->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_SCROLLBAR));
+    Button3->SetBackgroundColour(wxColour(103,58,183));
+    Button10 = new wxButton(this, ID_BUTTON10, _("Depurar buffer"), wxPoint(440,272), wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON10"));
+    Button10->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_SCROLLBAR));
+    Button10->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_ACTIVECAPTION));
     MenuBar1 = new wxMenuBar();
     Menu1 = new wxMenu();
     MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("Quit\tAlt-F4"), _("Quit the application"), wxITEM_NORMAL);
@@ -136,11 +151,17 @@ Ui_2Frame::Ui_2Frame(wxWindow* parent,wxWindowID id)
     Center();
 
     Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&Ui_2Frame::OnButton1Click);
+    Connect(ID_BUTTON4,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&Ui_2Frame::OnButton4Click);
     Connect(ID_BUTTON5,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&Ui_2Frame::OnButton5Click);
     Connect(ID_BUTTON6,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&Ui_2Frame::OnButton6Click);
+    Connect(ID_TEXTCTRL3,wxEVT_COMMAND_TEXT_UPDATED,(wxObjectEventFunction)&Ui_2Frame::OnLlave_1Text);
     Connect(ID_TEXTCTRL4,wxEVT_COMMAND_TEXT_UPDATED,(wxObjectEventFunction)&Ui_2Frame::OnTextCtrl4Text);
     Connect(ID_BUTTON7,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&Ui_2Frame::OnButton7Click);
     Connect(ID_TEXTCTRL5,wxEVT_COMMAND_TEXT_UPDATED,(wxObjectEventFunction)&Ui_2Frame::OnTextCtrl5Text);
+    Connect(ID_BUTTON8,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&Ui_2Frame::OnButton8Click);
+    Connect(ID_BUTTON9,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&Ui_2Frame::OnButton9Click);
+    Connect(ID_BUTTON2,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&Ui_2Frame::OnButton2Click2);
+    Connect(ID_BUTTON3,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&Ui_2Frame::OnButton3Click1);
     Connect(idMenuQuit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&Ui_2Frame::OnQuit);
     Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&Ui_2Frame::OnAbout);
     Connect(wxID_ANY,wxEVT_CLOSE_WINDOW,(wxObjectEventFunction)&Ui_2Frame::OnClose1);
@@ -198,6 +219,7 @@ void Ui_2Frame::OnButton1Click(wxCommandEvent& event)
     // paso de string a int los puertos
     int puerto1 = atoi(puerto_sa.c_str());
     int puerto2 = atoi(puerto_sp.c_str());
+    size_memoria=0;
     rm_init(ip1,puerto1,ip2,puerto2);
 }
 
@@ -207,19 +229,19 @@ void Ui_2Frame::OnButton7Click(wxCommandEvent& event)
     std::string mensaje_s = std::string(mensaje.mb_str());//Llave
     wxString mensaje2=Valor_1->GetValue();
     std::string mensaje_s2 = std::string(mensaje2.mb_str());//Valor
-
+    size_memoria+=1;
+    rm_new(mensaje_s,mensaje_s2,sizeof(mensaje_s2));
     string dato_enviar="1"+mensaje_s+"_"+mensaje_s2+"*";
-
     wxMessageBox(dato_enviar);
-    enviar(dato_enviar,1024);
 }
 
 void Ui_2Frame::OnButton6Click(wxCommandEvent& event)
 {
-    wxMessageBox("enviado");
-    peticion(1,"hola",1024);
-    peticion(2,"hola",1024);
-    wxMessageBox(buffer);
+    wxString mensaje=Llave_1->GetValue();
+    std::string mensaje_s = std::string(mensaje.mb_str());//Llave
+    rm_delete(mensaje_s);
+     bufferToString(buffer,10240,mensaje_s);
+     wxMessageBox("Se elimino la llave: "+mensaje_s);
 }
 
 
@@ -233,10 +255,89 @@ void Ui_2Frame::OnClose1(wxCloseEvent& event)
 
 void Ui_2Frame::OnButton5Click(wxCommandEvent& event)
 {
-    wxMessageBox("Quien dice? atte:Kelly \n pd:hola");
+    int x=0;
+     string mensaje;
+    while(x<size_memoria+2){
+        peticion("4","null","null");
+        bufferToString(buffer,10240,mensaje);
+        x+=1;
+    }
+    wxMessageBox(mensaje);
 }
 
 void Ui_2Frame::OnButton2Click(wxCommandEvent& event)
 {
     wxMessageBox("Cache:A , Valor: mensaje \n Size: 8 \n Referencias: 1");
+}
+
+void Ui_2Frame::OnButton4Click(wxCommandEvent& event)
+{
+
+    int x=0;
+     string mensaje;
+    while(x<size_memoria+2){
+        peticion("3","null","null");
+        bufferToString(buffer,10240,mensaje);
+        x+=1;
+    }
+    wxMessageBox(mensaje);
+
+}
+
+void Ui_2Frame::OnButton8Click(wxCommandEvent& event)
+{
+    wxString mensaje=Llave_1->GetValue();
+    std::string mensaje_s = std::string(mensaje.mb_str());//Llave
+
+    peticion("2",mensaje_s,"");
+     bufferToString(buffer,10240,mensaje_s);
+     wxMessageBox(mensaje_s+" eliminado");
+}
+
+void Ui_2Frame::OnButton2Click1(wxCommandEvent& event)
+{
+    string m="Cache:A , Valor: mensaje \n Size: 8 \n Referencias:0 \n Cache:B , Valor: mensaje \n Size: 8 \n Referencias: 1 \n Cache:C , Valor: mensaje \n Size: 8 \n Referencias: 1";
+    wxMessageBox(m);
+}
+
+void Ui_2Frame::OnButton10Click(wxCommandEvent& event)
+{
+    *buffer = '*';
+    *buffer2 = '*';
+}
+
+void Ui_2Frame::OnButton9Click(wxCommandEvent& event)
+{
+    wxString mensaje=Llave_1->GetValue();
+    std::string mensaje_s = std::string(mensaje.mb_str());//Llave
+    wxString mensaje2=Llave_2->GetValue();
+    std::string mensaje_s2 = std::string(mensaje2.mb_str());//Llave2 para comparar
+
+
+}
+
+void Ui_2Frame::OnLlave_1Text(wxCommandEvent& event)
+{
+}
+
+void Ui_2Frame::OnButton3Click1(wxCommandEvent& event)
+{
+    wxString mensaje=Llave_1->GetValue();
+    std::string mensaje_s = std::string(mensaje.mb_str());//Llave
+    wxString mensaje2=Llave_2->GetValue();
+    std::string mensaje_s2 = std::string(mensaje2.mb_str());//Llave2 para comparar
+
+}
+
+void Ui_2Frame::OnValor_2Text(wxCommandEvent& event)
+{
+}
+
+void Ui_2Frame::OnButton2Click2(wxCommandEvent& event)
+{
+    wxString mensaje=Llave_1->GetValue();
+    std::string mensaje_s = std::string(mensaje.mb_str());//Llave
+    wxString mensaje2=Llave_2->GetValue();
+    std::string mensaje_s2 = std::string(mensaje2.mb_str());//Llave2 para comparar
+
 }

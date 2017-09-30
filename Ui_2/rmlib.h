@@ -17,14 +17,14 @@ int portNum2 ;
 int disponible_server_HA=0; //ASI VERIFICO SI ESTA CONECTADO O DESCONECTADO
 int disponible_server_PA=0;
 int client; //socket cliente 1, osea el del servidor activo
-int bufsize = 1024; // buffer size
-char buffer[1024]; // buffer to transmit
+int bufsize = 10240; // buffer size
+char buffer[10240]; // buffer to transmit
 char ip[] = "127.0.0.1"; // Server IP
 bool isExit = false; // var fo continue infinitly
 string echo="";
 string echo2="";
 int client2; //socket cliente 2, osea el del servidor pasivo
-char buffer2[1024]; // buffer to transmit
+char buffer2[10240]; // buffer to transmit
 bool isExit2 = false; // var fo continue infinitly
 
 
@@ -42,23 +42,59 @@ struct rmRef_h{
     string llave;
     int Size;
     string valor;
-
 };
-void peticion(int cliente_S,char B[],int size_B)
+rmRef_h operator ==(rmRef_h A,rmRef_h B){
+    if(A.valor==B.valor){
+        wxMessageBox("Correcto");
+    }
+    else{
+        wxMessageBox("Incorrecto");
+    }
+}
+rmRef_h operator !=(rmRef_h A,rmRef_h B){
+    if(A.valor!=B.valor){
+        wxMessageBox("Correcto");
+    }
+    else{
+        wxMessageBox("Incorrecto");
+    }
+}
+
+
+void peticion(string data2,string llave,string llave2)
 {
-    char msj[1024]="pt*";
-    char msj2[1024]="pt*";
-    if (cliente_S==1)
-    {
-         send(client,msj,size_B,0);
+    if(data2=="3"){ //consulta de memoria
+        char msj[1024]="3k_ll*";
+        send(client,msj,10240,0);
+        recv(client, buffer, bufsize, 0);
+    }
+    else if(data2=="4"){ //consulta de cache
+         char msj[10240]="4k_ll*";
+         send(client,msj,10240,0);
          recv(client, buffer, bufsize, 0);
     }
-    if (cliente_S==2)
-    {
-        send(client2,msj,size_B,0);
-        recv(client2, buffer2, bufsize, 0);
+    else if(data2=="5")
+        { //consulta de llave para aumentar en 1 la referencia
+        data2="5"+llave+"_ll*";
+        char string_array[10240];
+        strcpy(string_array, data2.c_str());
+        send(client,string_array,10240,0);
+        recv(client, buffer, bufsize, 0);
     }
+    else if(data2=="2"){ //elimina la llave
 
+        data2="2"+llave+"_ll*";
+        char string_array[10240];
+        strcpy(string_array, data2.c_str());
+        send(client,string_array,10240,0);
+        recv(client, buffer, bufsize, 0);
+    }
+    else if(data2=="6"){ //comparar llaves
+
+    }
+    else if(data2=="7"){ //copiar valores de llaves
+
+    }
 
 }
 /*
@@ -133,16 +169,11 @@ Permite conectarme con el servidor activo
 
 void cliente2(){
 
-
     /* Structure describing an Internet socket address. */
     struct sockaddr_in server_addr;
-
-
-
     /* ---------- ESTABLISHING SOCKET CONNECTION ----------*/
 
     client2 = socket(AF_INET, SOCK_STREAM, 0);
-
     /*
     * The socket() function creates a new socket.
     * It takes 3 arguments:
@@ -204,11 +235,12 @@ void cliente2(){
     // recive the welcome message from server
     //recv(client2, buffer2, bufsize, 0);
 
-
-
         disponible_server_PA=0;
         send(client2,"SP",1024,0);
 }
+
+
+
 /*
 permite conectarme con el servidor pasivo
 */
@@ -224,16 +256,18 @@ void rm_init(char* ip,int port,char* ipHA,int portHA)
 
 }
 
-void rm_new(char* key,void* value,int value_size)
+void rm_new(string key,string value,int value_size)
 {
-
+    string dato_enviar="1"+key+"_"+value+"*";
+    enviar(dato_enviar,10240);
 }
 
-void rm_delete(char* msj)
+void rm_delete(string llave)
 {
+    peticion("5",llave,"null");
 
 }
-rmRef_h rm_get(char* key){
+rmRef_h rm_get(string key){
     rmRef_h resultado;
     return resultado;
 

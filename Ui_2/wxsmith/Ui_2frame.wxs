@@ -124,10 +124,9 @@
 			<handler function="OnButton3Click1" entry="EVT_BUTTON" />
 		</object>
 		<object class="wxButton" name="ID_BUTTON10" variable="Button10" member="yes">
-			<label>Depurar buffer</label>
-			<pos>440,272</pos>
-			<fg>wxSYS_COLOUR_SCROLLBAR</fg>
-			<bg>wxSYS_COLOUR_ACTIVECAPTION</bg>
+			<label>Label</label>
+			<pos>664,208</pos>
+			<handler function="OnButton10Click2" entry="EVT_BUTTON" />
 		</object>
 		<object class="wxMenuBar" variable="MenuBar1" member="no">
 			<object class="wxMenu" variable="Menu1" member="no">

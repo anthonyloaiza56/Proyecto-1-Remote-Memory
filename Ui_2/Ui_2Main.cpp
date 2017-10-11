@@ -11,13 +11,13 @@
 #include <wx/msgdlg.h>
 #include "rmlib.h"
 #include <string.h>
-
+#include <thread>
 //(*InternalHeaders(Ui_2Frame)
 #include <wx/settings.h>
 #include <wx/string.h>
 #include <wx/intl.h>
 //*)
-int size_memoria=0;
+
 //helper functions
 enum wxbuildinfoformat {
     short_f, long_f };
@@ -129,9 +129,7 @@ Ui_2Frame::Ui_2Frame(wxWindow* parent,wxWindowID id)
     Button3 = new wxButton(this, ID_BUTTON3, _("Comparar desigualdad"), wxPoint(376,232), wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON3"));
     Button3->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_SCROLLBAR));
     Button3->SetBackgroundColour(wxColour(103,58,183));
-    Button10 = new wxButton(this, ID_BUTTON10, _("Depurar buffer"), wxPoint(440,272), wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON10"));
-    Button10->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_SCROLLBAR));
-    Button10->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_ACTIVECAPTION));
+    Button10 = new wxButton(this, ID_BUTTON10, _("Label"), wxPoint(664,208), wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON10"));
     MenuBar1 = new wxMenuBar();
     Menu1 = new wxMenu();
     MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("Quit\tAlt-F4"), _("Quit the application"), wxITEM_NORMAL);
@@ -162,6 +160,7 @@ Ui_2Frame::Ui_2Frame(wxWindow* parent,wxWindowID id)
     Connect(ID_BUTTON9,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&Ui_2Frame::OnButton9Click);
     Connect(ID_BUTTON2,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&Ui_2Frame::OnButton2Click2);
     Connect(ID_BUTTON3,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&Ui_2Frame::OnButton3Click1);
+    Connect(ID_BUTTON10,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&Ui_2Frame::OnButton10Click2);
     Connect(idMenuQuit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&Ui_2Frame::OnQuit);
     Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&Ui_2Frame::OnAbout);
     Connect(wxID_ANY,wxEVT_CLOSE_WINDOW,(wxObjectEventFunction)&Ui_2Frame::OnClose1);
@@ -232,7 +231,7 @@ void Ui_2Frame::OnButton7Click(wxCommandEvent& event)
     size_memoria+=1;
     rm_new(mensaje_s,mensaje_s2,sizeof(mensaje_s2));
     string dato_enviar="1"+mensaje_s+"_"+mensaje_s2+"*";
-    wxMessageBox(dato_enviar);
+
 }
 
 void Ui_2Frame::OnButton6Click(wxCommandEvent& event)
@@ -240,8 +239,15 @@ void Ui_2Frame::OnButton6Click(wxCommandEvent& event)
     wxString mensaje=Llave_1->GetValue();
     std::string mensaje_s = std::string(mensaje.mb_str());//Llave
     rm_delete(mensaje_s);
-     bufferToString(buffer,10240,mensaje_s);
-     wxMessageBox("Se elimino la llave: "+mensaje_s);
+    int x=0;
+    while(x<size_memoria+1){
+        peticion("7","null");
+        x+=1;
+    }
+   bufferToString(buffer,10240,mensaje_s);
+    wxMessageBox(mensaje_s);
+    bufferToString(buffer2,10240,mensaje_s);
+    wxMessageBox(mensaje_s);
 }
 
 
@@ -257,12 +263,20 @@ void Ui_2Frame::OnButton5Click(wxCommandEvent& event)
 {
     int x=0;
      string mensaje;
-    while(x<size_memoria+2){
-        peticion("4","null","null");
-        bufferToString(buffer,10240,mensaje);
+    // peticion("4","null","null");
+    peticion("4","null");
+   while(x<size_memoria+1){
+        peticion("7","null");
         x+=1;
     }
+    string data="Largo"+to_string(size_memoria);
+    wxMessageBox(data);
+    bufferToString(buffer,10240,mensaje);
     wxMessageBox(mensaje);
+    bufferToString(buffer2,10240,mensaje);
+    wxMessageBox(mensaje);
+
+
 }
 
 void Ui_2Frame::OnButton2Click(wxCommandEvent& event)
@@ -275,12 +289,17 @@ void Ui_2Frame::OnButton4Click(wxCommandEvent& event)
 
     int x=0;
      string mensaje;
-    while(x<size_memoria+2){
-        peticion("3","null","null");
-        bufferToString(buffer,10240,mensaje);
+     string mensaje2;
+    peticion("3","null");
+    while(x<size_memoria+1){
+        peticion("7","null");
         x+=1;
     }
+
+    bufferToString(buffer,10240,mensaje);
     wxMessageBox(mensaje);
+    bufferToString(buffer2,10240,mensaje2);
+    wxMessageBox(mensaje2);
 
 }
 
@@ -288,10 +307,17 @@ void Ui_2Frame::OnButton8Click(wxCommandEvent& event)
 {
     wxString mensaje=Llave_1->GetValue();
     std::string mensaje_s = std::string(mensaje.mb_str());//Llave
+    peticion("2",mensaje_s);
+    int x=0;
+    while(x<size_memoria+1){
+        peticion("7","null");
+        x+=1;
+    }
 
-    peticion("2",mensaje_s,"");
-     bufferToString(buffer,10240,mensaje_s);
-     wxMessageBox(mensaje_s+" eliminado");
+   bufferToString(buffer,10240,mensaje_s);
+    wxMessageBox(mensaje_s);
+    bufferToString(buffer2,10240,mensaje_s);
+    wxMessageBox(mensaje_s);
 }
 
 void Ui_2Frame::OnButton2Click1(wxCommandEvent& event)
@@ -302,18 +328,59 @@ void Ui_2Frame::OnButton2Click1(wxCommandEvent& event)
 
 void Ui_2Frame::OnButton10Click(wxCommandEvent& event)
 {
-    *buffer = '*';
-    *buffer2 = '*';
+    iniciar_cliente_SA();
 }
 
 void Ui_2Frame::OnButton9Click(wxCommandEvent& event)
 {
+    string val1_A;
+    string val2_A;
+    string val1_P;
+    string val2_P;
+    rmRef_h A;
+    rmRef_h B;
+    rmRef_h A_P;
+    rmRef_h B_P;
+
     wxString mensaje=Llave_1->GetValue();
     std::string mensaje_s = std::string(mensaje.mb_str());//Llave
+    A.llave=mensaje_s;
+    A_P.llave=mensaje_s;
+    peticion("9",mensaje_s);
+    int x=0;
+    while(x<size_memoria+1){
+        peticion("7","null");
+        x+=1;
+    }
+    bufferToString(buffer,10240,mensaje_s);
+    val1_A=mensaje_s;
+    A.valor=mensaje_s;
+
+    bufferToString(buffer2,10240,mensaje_s);
+    val1_P=mensaje_s;
+    A_P.valor=val1_P;
+
+    //********************************************//
     wxString mensaje2=Llave_2->GetValue();
     std::string mensaje_s2 = std::string(mensaje2.mb_str());//Llave2 para comparar
+    B.llave=mensaje_s;
+    B_P.llave=mensaje_s;
+    peticion("9",mensaje_s2);
+    x=0;
+    while(x<size_memoria+1){
+        peticion("7","null");
+        x+=1;
+    }
+    bufferToString(buffer,10240,mensaje_s2);
+    val2_A=mensaje_s2;
+    B.valor=val2_A;
 
 
+    bufferToString(buffer2,10240,mensaje_s2);
+    val2_P=mensaje_s2;
+    B_P.valor=val2_P;
+
+    A==B;
 }
 
 void Ui_2Frame::OnLlave_1Text(wxCommandEvent& event)
@@ -322,11 +389,54 @@ void Ui_2Frame::OnLlave_1Text(wxCommandEvent& event)
 
 void Ui_2Frame::OnButton3Click1(wxCommandEvent& event)
 {
+    string val1_A;
+    string val2_A;
+    string val1_P;
+    string val2_P;
+    rmRef_h A;
+    rmRef_h B;
+    rmRef_h A_P;
+    rmRef_h B_P;
+
     wxString mensaje=Llave_1->GetValue();
     std::string mensaje_s = std::string(mensaje.mb_str());//Llave
+    A.llave=mensaje_s;
+    A_P.llave=mensaje_s;
+    peticion("9",mensaje_s);
+    int x=0;
+    while(x<size_memoria+1){
+        peticion("7","null");
+        x+=1;
+    }
+    bufferToString(buffer,10240,mensaje_s);
+    val1_A=mensaje_s;
+    A.valor=mensaje_s;
+
+    bufferToString(buffer2,10240,mensaje_s);
+    val1_P=mensaje_s;
+    A_P.valor=val1_P;
+
+    //********************************************//
     wxString mensaje2=Llave_2->GetValue();
     std::string mensaje_s2 = std::string(mensaje2.mb_str());//Llave2 para comparar
+    B.llave=mensaje_s;
+    B_P.llave=mensaje_s;
+    peticion("9",mensaje_s2);
+    x=0;
+    while(x<size_memoria+1){
+        peticion("7","null");
+        x+=1;
+    }
+    bufferToString(buffer,10240,mensaje_s2);
+    val2_A=mensaje_s2;
+    B.valor=val2_A;
 
+
+    bufferToString(buffer2,10240,mensaje_s2);
+    val2_P=mensaje_s2;
+    B_P.valor=val2_P;
+
+    A!=B;
 }
 
 void Ui_2Frame::OnValor_2Text(wxCommandEvent& event)
@@ -340,4 +450,9 @@ void Ui_2Frame::OnButton2Click2(wxCommandEvent& event)
     wxString mensaje2=Llave_2->GetValue();
     std::string mensaje_s2 = std::string(mensaje2.mb_str());//Llave2 para comparar
 
+}
+
+void Ui_2Frame::OnButton10Click2(wxCommandEvent& event)
+{
+    iniciar_cliente_SA();
 }

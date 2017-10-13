@@ -129,7 +129,7 @@ Ui_2Frame::Ui_2Frame(wxWindow* parent,wxWindowID id)
     Button3 = new wxButton(this, ID_BUTTON3, _("Comparar desigualdad"), wxPoint(376,232), wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON3"));
     Button3->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_SCROLLBAR));
     Button3->SetBackgroundColour(wxColour(103,58,183));
-    Button10 = new wxButton(this, ID_BUTTON10, _("Label"), wxPoint(664,208), wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON10"));
+    Button10 = new wxButton(this, ID_BUTTON10, _("RE-Conectar SA"), wxPoint(624,248), wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON10"));
     MenuBar1 = new wxMenuBar();
     Menu1 = new wxMenu();
     MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("Quit\tAlt-F4"), _("Quit the application"), wxITEM_NORMAL);
@@ -443,12 +443,14 @@ void Ui_2Frame::OnValor_2Text(wxCommandEvent& event)
 {
 }
 
-void Ui_2Frame::OnButton2Click2(wxCommandEvent& event)
+void Ui_2Frame::OnButton2Click2(wxCommandEvent& event) //coṕiar valor
 {
     wxString mensaje=Llave_1->GetValue();
     std::string mensaje_s = std::string(mensaje.mb_str());//Llave
+    peticion("8",mensaje_s);
     wxString mensaje2=Llave_2->GetValue();
-    std::string mensaje_s2 = std::string(mensaje2.mb_str());//Llave2 para comparar
+    std::string mensaje_s2 = std::string(mensaje2.mb_str());//Llave2 donde se copia el valor
+    peticion("8_2",mensaje_s2);
 
 }
 

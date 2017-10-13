@@ -125,6 +125,28 @@ void peticion(string data2,string llave)
          recv(client, buffer, bufsize, 0);
          recv(client2, buffer2, bufsize, 0);
     }
+    else if(data2=="8"){ //elimina la llave
+
+        data2="81"+llave+"_ll*";
+        char string_array[10240];
+        strcpy(string_array, data2.c_str());
+        send(client,string_array,10240,0);
+        send(client2,string_array,10240,0);
+        recv(client, buffer, bufsize, 0);
+        recv(client2, buffer2, bufsize, 0);
+        strcpy(buffer, "");
+    }
+    else if(data2=="8_2"){ //copia valores de llave
+
+        data2="82"+llave+"_ll*";
+        char string_array[10240];
+        strcpy(string_array, data2.c_str());
+        send(client,string_array,10240,0);
+        send(client2,string_array,10240,0);
+        recv(client, buffer, bufsize, 0);
+        recv(client2, buffer2, bufsize, 0);
+        strcpy(buffer, "");
+    }
 
 }
 /*

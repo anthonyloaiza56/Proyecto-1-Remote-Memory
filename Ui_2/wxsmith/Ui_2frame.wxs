@@ -124,8 +124,8 @@
 			<handler function="OnButton3Click1" entry="EVT_BUTTON" />
 		</object>
 		<object class="wxButton" name="ID_BUTTON10" variable="Button10" member="yes">
-			<label>Label</label>
-			<pos>664,208</pos>
+			<label>RE-Conectar SA</label>
+			<pos>624,248</pos>
 			<handler function="OnButton10Click2" entry="EVT_BUTTON" />
 		</object>
 		<object class="wxMenuBar" variable="MenuBar1" member="no">

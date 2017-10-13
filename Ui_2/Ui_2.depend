@@ -2060,7 +2060,7 @@
 
 1491890964 /usr/include/wx-3.0/wx/gtk/textctrl.h
 
-1507400975 source:/home/anthony/Escritorio/Ui_2/Ui_2Main.cpp
+1507909270 source:/home/anthony/Escritorio/Ui_2/Ui_2Main.cpp
 	"Ui_2Main.h"
 	<wx/msgdlg.h>
 	"rmlib.h"
@@ -2122,7 +2122,7 @@
 
 1491890964 /usr/include/wx-3.0/wx/gtk/msgdlg.h
 
-1507400722 /home/anthony/Escritorio/Ui_2/rmlib.h
+1507901116 /home/anthony/Escritorio/Ui_2/rmlib.h
 	<iostream>
 	<string.h>
 	<sys/types.h>

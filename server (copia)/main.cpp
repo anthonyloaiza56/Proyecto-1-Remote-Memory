@@ -1,4 +1,3 @@
-
 /*!
  * Servidor Activo-Pasivo
  */

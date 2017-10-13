@@ -1,2 +1,2 @@
 Options: 
-CMake: 3.8.2@/home/tony/Descargas/clion-2017.2.2/bin/cmake/bin/cmake
+CMake: 3.8.2@/home/anthony/Descargas/clion-2017.2.2/bin/cmake/bin/cmake

@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/tony/Escritorio/sERVIDOR_pROYECTO/server/main.cpp
+/home/anthony/Escritorio/sERVIDOR_pROYECTO/server/main.cpp
 iostream
 -
 string.h
@@ -26,5 +26,7 @@ unistd.h
 stdio.h
 -
 thread
+-
+unistd.h
 -
 

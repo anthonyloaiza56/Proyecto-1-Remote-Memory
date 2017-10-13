@@ -16,6 +16,7 @@
 
 using namespace std;
 
+string valor_copiar;
 int decicion;
 int mode;//1=Activo,2=Pasivo
 bool establecido=false;
@@ -109,6 +110,54 @@ int buscarElemento_llave(Tlista lista, string key,string modo)
                 band = 1;
                 q->referencias+=1;
                 echo=q->valor;
+                return 1;
+            }
+            q = q->sgte;
+            i++;
+        }
+
+        if(band==0){
+            return 0;
+        }
+    }
+    else if(modo=="1"){ //busca,aumenta una referencia y retorna el nodo, busca el valor de la llave a copiar
+        Tlista q = lista; //temporal de la memoria, donde se recorre hasta encontrar la llave indicada
+        int i = 1, band = 0;
+
+        while(q!=NULL)
+        {
+            if(q->llave == key)
+            {
+                cout<<endl<<"El valor de la llave indicada esta en la posicion "<< i <<endl;
+                cout<<q->valor;
+                band = 1;
+                q->referencias+=1;
+                echo=q->valor;
+                valor_copiar=q->valor;
+                return 1;
+            }
+            q = q->sgte;
+            i++;
+        }
+
+        if(band==0){
+            return 0;
+        }
+    }
+    else if(modo=="2"){ //busca,aumenta una referencia y retorna el nodo
+        Tlista q = lista; //temporal de la memoria, donde se recorre hasta encontrar la llave indicada
+        int i = 1, band = 0;
+
+        while(q!=NULL)
+        {
+            if(q->llave == key)
+            {
+                cout<<endl<<"El valor de la llave indicada esta en la posicion "<< i <<endl;
+                cout<<q->valor;
+                band = 1;
+                q->referencias+=1;
+                echo=q->valor;
+                q->valor=valor_copiar;
                 return 1;
             }
             q = q->sgte;
@@ -683,14 +732,75 @@ void server_SP()
                     cout<<"Eliminando\n";
 
                 }
-                else if(tmp=="S") //compara valores de llave
+                else if(tmp=="9"){ //compara valores de llave
+
+                    int ref=0;
+                    string llave_c;
+                    int iterador=1;
+                    string tmp;
+                    tmp=dato[iterador];
+                    while(tmp!="_"){
+                        llave_c+=tmp;
+                        iterador+=1;
+                        tmp=dato[iterador];
+                    }
+                    cout<<"llave";
+                    cout<<"\n";
+                    cout<<llave_c;
+                    cout<<"\n";
+                    buscarElemento_llave(memoria,llave_c,"cmp");
+
+                }
+                else if(tmp=="S") //busca sincronizarse con el servidor activo
                 {
                     mode=2;
                     cout<<"SINCRONIZADO AL SERVIDOR ACTIVO";
                 }
-                else if(tmp=="7") //copia valores de llave
-                {
-
+                else if(tmp=="8"){ //copia valores entre llaves
+                    int ref=0;
+                    string llave_c;
+                    int iterador=2;
+                    string tmp;
+                    string copia;
+                    copia=dato[1];
+                    if(copia=="1"){
+                        tmp=dato[iterador];
+                        while(tmp!="_"){
+                            llave_c+=tmp;
+                            iterador+=1;
+                            tmp=dato[iterador];
+                        }
+                        cout<<"llave";
+                        cout<<"\n";
+                        cout<<llave_c;
+                        cout<<"\n";
+                        buscarElemento_llave(memoria,llave_c,"1");
+                        char myArray[10240];
+                        strcpy(myArray, echo.c_str());
+                        //send the message to the client
+                        send(client_rm, myArray, bufSize, 0);
+                        strcpy(buffer, "");
+                        continue;
+                    }
+                    else if(copia=="2"){
+                        tmp=dato[iterador];
+                        while(tmp!="_"){
+                            llave_c+=tmp;
+                            iterador+=1;
+                            tmp=dato[iterador];
+                        }
+                        cout<<"llave";
+                        cout<<"\n";
+                        cout<<llave_c;
+                        cout<<"\n";
+                        buscarElemento_llave(memoria,llave_c,"2");
+                        char myArray[10240];
+                        strcpy(myArray, echo.c_str());
+                        //send the message to the client
+                        send(client_rm, myArray, bufSize, 0);
+                        strcpy(buffer, "");
+                        continue;
+                    }
                 }
             } while (!isExit);
 
@@ -1004,7 +1114,7 @@ void server_to_rm()
                 strcpy(buffer, "");
                 continue;
             }
-            else if(tmp=="7") //copia valores de llave
+            else if(tmp=="7") //recorre la llave
             {
                 char myArray[10240];
                 strcpy(myArray, echo.c_str());
@@ -1012,6 +1122,52 @@ void server_to_rm()
                 send(client_rm, myArray, bufSize, 0);
                 strcpy(buffer, "");
                 continue;
+            }
+            else if(tmp=="8"){ //copia valores entre llaves
+                int ref=0;
+                string llave_c;
+                int iterador=2;
+                string tmp;
+                string copia;
+                copia=dato[1];
+                if(copia=="1"){
+                    tmp=dato[iterador];
+                    while(tmp!="_"){
+                        llave_c+=tmp;
+                        iterador+=1;
+                        tmp=dato[iterador];
+                    }
+                    cout<<"llave";
+                    cout<<"\n";
+                    cout<<llave_c;
+                    cout<<"\n";
+                    buscarElemento_llave(memoria,llave_c,"1");
+                    char myArray[10240];
+                    strcpy(myArray, echo.c_str());
+                    //send the message to the client
+                    send(client_rm, myArray, bufSize, 0);
+                    strcpy(buffer, "");
+                    continue;
+                }
+                else if(copia=="2"){
+                    tmp=dato[iterador];
+                    while(tmp!="_"){
+                        llave_c+=tmp;
+                        iterador+=1;
+                        tmp=dato[iterador];
+                    }
+                    cout<<"llave";
+                    cout<<"\n";
+                    cout<<llave_c;
+                    cout<<"\n";
+                    buscarElemento_llave(memoria,llave_c,"2");
+                    char myArray[10240];
+                    strcpy(myArray, echo.c_str());
+                    //send the message to the client
+                    send(client_rm, myArray, bufSize, 0);
+                    strcpy(buffer, "");
+                    continue;
+                }
             }
         }
         if(mode==2){
